@@ -4,4 +4,6 @@ dist/
 build/
 out/
 .env
+secret.env
+quiz/secret.env
 *.log
