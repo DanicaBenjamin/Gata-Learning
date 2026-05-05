@@ -4,7 +4,10 @@
     <title> ICCA - Gato Learning </title>
 </head>
 <body data-subject = "QE">
-    <h1> Quantum Electronics </h1>
+    <div class="titlebar">
+        <button class="minimize"></button>
+        <button class="close"></button>
+    </div>
     <div class="quiz-box">
         <p id="scoreDisplay">Score: 0</p>
         <p id="progress"></p>
@@ -12,8 +15,13 @@
         <div id = "options"> </div>
         <p id = "result"> </p>
         <button id = "next"> Next </button>
+        <div id="endButtons" style="display: none;">
+            <button id="retry">Try Again</button>
+            <button id="menu">Return to Menu</button>
+        </div>
     </div>
     <!--<script src="syllabus.js"> </script>-->
     <script src="questions.js"> </script>
     <script src="renderer.js"> </script>
+    <script src = "header.js"> </script>
 </body>

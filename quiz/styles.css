@@ -1,3 +1,211 @@
-body {
-    -webkit-app-region: drag;
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: "Press Start 2P";
+}
+
+.index {
+    height: 100%;
+}
+
+.index .app-container {
+    height: 100%;
+    width: 100%;
+
+    background-image: url("assets/temp.png");
+    background-position: top bottom;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.sub .app-container {
+    height: 100%;
+    width: 100%;
+
+    background-image: url("assets/menu.png");
+    background-position: top bottom;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.app-container {
+    position: fixed;
+    inset: 0;
+    background-size: contain;
+}
+
+.click {
+    position: absolute;
+    top: 37%;
+    left: 20%;
+
+    width: 330px;
+    height: 77px;
+
+    background: url("assets/button.png") center / contain no-repeat;
+    border: none;
+}
+
+button:hover {
+    filter: brightness(1.1);
+}
+
+.ICCA {
+
+    position: absolute;
+    top: 23.5%;
+    left: 19.5%;
+
+    width: 346px;
+    height: 77px;
+
+    background: url("assets/icca-button.png") center / contain no-repeat;
+    border: none;
+}
+
+.CA {
+    position: absolute;
+    top: 35.4%;
+    left: 19.5%;
+
+    width: 346px;
+    height: 77px;
+
+    background: url("assets/ca-button.png") center / contain no-repeat;
+    border: none;
+}
+
+.DS {
+    position: absolute;
+    top: 47.3%;
+    left: 19.5%;
+
+    width: 346px;
+    height: 77px;
+
+    background: url("assets/ds-button.png") center / contain no-repeat;
+    border: none;
+}
+
+.ADD {
+    position: absolute;
+    top: 58.9%;
+    left: 19.5%;
+
+    width: 346px;
+    height: 77px;
+
+    background: url("assets/add-button.png") center / contain no-repeat;
+    border: none;
+}
+
+.QE {
+    position: absolute;
+    top: 70.8%;
+    left: 19.5%;
+
+    width: 346px;
+    height: 77px;
+
+    background: url("assets/qe-button.png") center / contain no-repeat;
+    border: none;
+}
+
+.PE {
+    position: absolute;
+    top: 82.6%;
+    left: 19.5%;
+
+    width: 346px;
+    height: 77px;
+
+    background: url("assets/pe-button.png") center / contain no-repeat;
+    border: none;
+}
+
+button {
+    transition: all 0.1s ease;
+}
+
+body[data-subject = "ICCA"] {
+    background: url("assets/icca.png");
+}
+
+body[data-subject = "CA"] { 
+    background: url("assets/ca.png");
+}
+
+body[data-subject = "DS"] {
+    background: url("assets/ds.png");
+}
+
+body[data-subject = "ADD"] {
+    background: url("assets/add.png");
+}
+
+body[data-subject = "QE"] {
+    background: url("assets/qe.png");
+}
+
+body[data-subject = "PE"] {
+    background: url("assets/pe.png");
+}
+
+.titlebar {
+    position: fixed;
+    top: 4%;
+    right: 7.5%;
+    z-index: 9999;
+    display: flex;
+    gap: 12.1px;   
+    -webkit-app-region: drag; 
+}
+
+.minimize {
+    gap: 50px;
+    width: 31px;
+    height: 31px;
+    background: url("assets/minimize.png") center / contain no-repeat; 
+    border: none;
+    -webkit-app-region: no-drag; 
+}
+
+.close {
+    gap: 50px;
+    width: 31px;
+    height: 31px;
+    background: url("assets/close.png") center / contain no-repeat; 
+    border: none;
+    -webkit-app-region: no-drag; 
+}
+
+.quiz-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding-top: 220px; 
+    margin-top: 15px;
+    font-family: "Nunito", sans-serif;
+}
+
+#options button {
+    width: 260px;          
+    height: 45px;   
+
+    border-radius: 12px;
+    border: 2px solid #302e2e;
+
+    background: #bf859d;   
+    color: #302e2e;        
+
+    font-family: "Press Start 2P", monospace;
+    font-size: 15px;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quiz-box p {
+    margin: 5px 0;   
 }

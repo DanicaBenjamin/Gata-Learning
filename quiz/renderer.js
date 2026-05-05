@@ -5,6 +5,26 @@ const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });*/
 
+window.addEventListener("DOMContentLoaded", () => {
+document.querySelector(".minimize")?.addEventListener("click", () => {
+    console.log("MIN CLICKED");
+    window.windowControls.minimize();
+});    const close = document.querySelector(".close");
+const min = document.querySelector(".close");
+
+    console.log("windowControls:", window.windowControls); // 👈 DEBUG
+
+    min?.addEventListener("click", () => {
+        console.log("minimize clicked");
+        window.windowControls?.minimize();
+    });
+
+    close?.addEventListener("click", () => {
+        console.log("close clicked");
+        window.windowControls?.close();
+    });
+});
+
 const click = document.getElementById('click');
 if(click) {
     click.addEventListener('click', function() {

@@ -6,5 +6,16 @@ window.addEventListener('DOMContentLoaded', () => {
     <div id="window-controls" style="-webkit-app-region: no-drag;">
     </div>
   `;
-  document.body.prepend(header); // Adds it to the top of every page
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'styles.css';
+    document.head.appendChild(link);  
+    document.body.prepend(header); 
+});
+
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('windowControls', {
+    minimize: () => ipcRenderer.send('minimize'),
+    close: () => ipcRenderer.send('close')
 });
