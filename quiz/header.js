@@ -6,8 +6,7 @@ document.querySelector(".minimize")?.addEventListener("click", () => {
 });    const close = document.querySelector(".close");
 const min = document.querySelector(".close");
 
-    console.log("windowControls:", window.windowControls); // 👈 DEBUG
-
+    console.log("windowControls:", window.windowControls); 
     min?.addEventListener("click", () => {
         console.log("minimize clicked");
         window.windowControls?.minimize();

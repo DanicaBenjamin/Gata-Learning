@@ -13,5 +13,10 @@
   "type": "commonjs",
   "devDependencies": {
     "electron": "^41.3.0"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "dotenv": "^17.4.2",
+    "openai": "^6.37.0"
   }
 }

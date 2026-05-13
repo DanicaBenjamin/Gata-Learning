@@ -209,3 +209,32 @@ body[data-subject = "PE"] {
 .quiz-box p {
     margin: 5px 0;   
 }
+
+.quiz-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+#retry,
+#menu,
+#next {
+    width: 140px;
+    height: 45px;
+
+    border-radius: 12px;
+    border: 2px solid #302e2e;
+
+    background: #bf859d;
+    color: #302e2e;
+
+    font-family: "Press Start 2P", monospace;
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+#question {
+    text-align: center;
+    white-space: pre-line;
+}

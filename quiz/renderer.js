@@ -1,18 +1,9 @@
-/*require("dotenv").config();
-const OpenAI = require("openai");
-
-const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
-});*/
-
 window.addEventListener("DOMContentLoaded", () => {
-document.querySelector(".minimize")?.addEventListener("click", () => {
-    console.log("MIN CLICKED");
-    window.windowControls.minimize();
-});    const close = document.querySelector(".close");
-const min = document.querySelector(".close");
 
-    console.log("windowControls:", window.windowControls); // 👈 DEBUG
+    const close = document.querySelector(".close");
+    const min = document.querySelector(".minimize");
+
+    console.log("windowControls:", window.windowControls);
 
     min?.addEventListener("click", () => {
         console.log("minimize clicked");
@@ -25,140 +16,144 @@ const min = document.querySelector(".close");
     });
 });
 
+
+// ======================
+// PAGE NAVIGATION
+// ======================
+
 const click = document.getElementById('click');
-if(click) {
-    click.addEventListener('click', function() {
+if (click) {
+    click.addEventListener('click', () => {
         window.location.href = "subject.html";
     });
 }
 
 const ic = document.getElementById('ICCA');
-if(ic) {
-    ic.addEventListener('click', function() {
+if (ic) {
+    ic.addEventListener('click', () => {
         window.location.href = "ICCA.html";
     });
 }
 
 const ca = document.getElementById('CA');
-if(ca) {
-    ca.addEventListener('click', function() {
+if (ca) {
+    ca.addEventListener('click', () => {
         window.location.href = "CA.html";
     });
 }
 
 const ds = document.getElementById('DS');
-if(ds) {
-    ds.addEventListener('click', function() {
+if (ds) {
+    ds.addEventListener('click', () => {
         window.location.href = "DS.html";
     });
 }
 
 const ad = document.getElementById('ADD');
-if(ad) {
-    ad.addEventListener('click', function() {
+if (ad) {
+    ad.addEventListener('click', () => {
         window.location.href = "ADD.html";
     });
 }
 
 const qe = document.getElementById('QE');
-if(qe) {
-    qe.addEventListener('click', function() {
-        window.location.href = "CA.html";
+if (qe) {
+    qe.addEventListener('click', () => {
+        window.location.href = "QE.html";
     });
 }
 
 const pe = document.getElementById('PE');
-if(pe) {
-    pe.addEventListener('click', function() {
+if (pe) {
+    pe.addEventListener('click', () => {
         window.location.href = "PE.html";
     });
 }
+
+
+// ======================
+// QUIZ VARIABLES
+// ======================
+
+const subject = document.body.dataset.subject;
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+
+const nextBtn = document.getElementById("next");
+const retryBtn = document.getElementById("retry");
+const menuBtn = document.getElementById("menu");
+
+
+// ======================
+// SCORE
+// ======================
 
 function updateScore() {
     document.getElementById("scoreDisplay").textContent =
         `Score: ${score}/${questions.length}`;
 }
 
-/*async function generateQuestions() {
-    console.log(syllabusBank.PE);    
-    const prompt = `
-    Using ONLY the following Professional English syllabus,
-    generate 10 multiple choice questions.
 
-    Syllabus:
-    ${syllabusBank.PE}
-
-    Rules:
-    - Stay strictly within the syllabus
-    - Difficulty: medium
-    - Return JSON only
-    - Format:
-    [
-    {
-        "question": "...",
-        "options": ["A", "B", "C", "D"],
-        "answer": "..."
-    }
-    ]
-    `;
-    const response = await client.responses.create({
-        model: "gpt-5",
-        input: prompt
-    });
-
-    return JSON.parse(response.output_text);
-}
-
-document.getElementById("question").textContent =
-    "Syllabus loaded successfully!";
-
-let questions = [];
-let currentQuestion = 0;
+// ======================
+// AI QUESTION GENERATION
+// ======================
 
 async function startQuiz() {
-    questions = await generateQuestions();
-    loadQuestion();
+
+    document.getElementById("question").textContent =
+        "Generating questions...";
+
+    try {
+
+        questions = await window.ai.generateQuestions(
+            syllabusBank[subject]
+        );
+
+        if (!questions || questions.length === 0) {
+
+            document.getElementById("question").textContent =
+            "No questions could be generated.";
+
+            return;
+        }
+
+        currentQuestion = 0;
+        score = 0;
+
+        document.getElementById("scoreDisplay").style.display = "block";
+        document.getElementById("progress").style.display = "block";
+
+        document.getElementById("scoreDisplay").textContent =
+            `Score: 0/${questions.length}`;
+
+        retryBtn.style.display = "none";
+        nextBtn.style.display = "block";
+
+        loadQuestion();
+
+    } catch (err) {
+
+        console.error(err);
+
+        document.getElementById("question").textContent =
+            "Failed to generate questions.";
+    }
 }
 
-function loadQuestion() {
-    const q = questions[currentQuestion];
 
-    document.getElementById("question").textContent = q.question;
-
-    const optionsDiv = document.getElementById("options");
-    optionsDiv.innerHTML = "";
-
-    q.options.forEach(option => {
-        const btn = document.createElement("button");
-        btn.textContent = option;
-
-        btn.addEventListener("click", function () {
-            if (option === q.answer) {
-                document.getElementById("result").textContent = "Correct!";
-            } else {
-                document.getElementById("result").textContent = "Wrong!";
-            }
-        });
-
-        optionsDiv.appendChild(btn);
-        optionsDiv.appendChild(document.createElement("br"));
-    });
-}
-
-startQuiz();*/
-
-const subject = document.body.dataset.subject;
-const questions = questionBank[subject];
-
-let currentQuestion = 0;
-let score = 0;
+// ======================
+// LOAD QUESTION
+// ======================
 
 function loadQuestion() {
+
     nextBtn.disabled = true;
 
     document.getElementById("progress").textContent =
         `Question ${currentQuestion + 1} of ${questions.length}`;
-    
+
     const q = questions[currentQuestion];
 
     document.getElementById("question").textContent = q.question;
@@ -166,67 +161,130 @@ function loadQuestion() {
     const optionsDiv = document.getElementById("options");
     optionsDiv.innerHTML = "";
 
+    document.getElementById("result").textContent = "";
+
     q.options.forEach(option => {
+
         const btn = document.createElement("button");
         btn.textContent = option;
 
-        btn.addEventListener("click", function () {
-    const allButtons = optionsDiv.querySelectorAll("button");
+        btn.addEventListener("click", () => {
 
-    // disable all buttons after one click
-    allButtons.forEach(button => {
-        button.disabled = true;
-    });
+            const allButtons =
+                optionsDiv.querySelectorAll("button");
 
-    nextBtn.disabled = false;
+            allButtons.forEach(button => {
+                button.disabled = true;
+            });
 
-    if (option === q.answer) {
-        btn.style.backgroundColor = "lightgreen";
-        document.getElementById("result").textContent = "✔ Correct!";
-        score++;
-        document.getElementById("scoreDisplay").textContent =
-        `Score: ${score}`;
-    } 
-    else {
-        btn.style.backgroundColor = "lightcoral";
-        document.getElementById("result").textContent =
-            `✘ Wrong! Correct answer: ${q.answer}`;
+            nextBtn.disabled = false;
 
-        // highlight correct one
-        allButtons.forEach(button => {
-            if (button.textContent === q.answer) {
-                button.style.backgroundColor = "lightgreen";
+            if (option === q.answer) {
+
+                btn.style.backgroundColor = "lightgreen";
+
+                document.getElementById("result").textContent =
+                    "✔ Correct!";
+
+                score++;
+
+            } else {
+
+                btn.style.backgroundColor = "lightcoral";
+
+                document.getElementById("result").textContent =
+                    `✘ Wrong! Correct answer: ${q.answer}`;
+
+                allButtons.forEach(button => {
+
+                    if (button.textContent === q.answer) {
+                        button.style.backgroundColor =
+                            "lightgreen";
+                    }
+                });
             }
+
+            updateScore();
         });
-    }
-    updateScore();
-});
 
         optionsDiv.appendChild(btn);
         optionsDiv.appendChild(document.createElement("br"));
     });
 }
 
-const nextBtn = document.getElementById("next");
-nextBtn.disabled = true;
+
+// ======================
+// NEXT BUTTON
+// ======================
 
 if (nextBtn) {
-    nextBtn.addEventListener("click", function () {
+
+    nextBtn.disabled = true;
+
+    nextBtn.addEventListener("click", () => {
+
         currentQuestion++;
 
         if (currentQuestion < questions.length) {
-            document.getElementById("result").textContent = "";
+
             loadQuestion();
+
         } else {
+
             document.getElementById("question").textContent =
-                `Quiz completed! Score: ${score}/${questions.length}`;
+`⋆˙⟡ Quiz completed! ⋆˙⟡
+Score: ${score}/${questions.length}`;
+
             document.getElementById("options").innerHTML = "";
             document.getElementById("result").textContent = "";
+
+            document.getElementById("scoreDisplay").style.display =
+                "none";
+
+            document.getElementById("progress").style.display =
+                "none";
+
             nextBtn.style.display = "none";
+
+            retryBtn.style.display = "block";
         }
     });
 }
 
+
+// ======================
+// RETRY BUTTON
+// ======================
+
+if (retryBtn) {
+
+    retryBtn.style.display = "none";
+
+    retryBtn.addEventListener("click", () => {
+
+        startQuiz();
+    });
+}
+
+
+// ======================
+// MENU BUTTON
+// ======================
+
+if (menuBtn) {
+
+    menuBtn.addEventListener("click", () => {
+
+        window.location.href = "subject.html";
+    });
+}
+
+
+// ======================
+// START QUIZ
+// ======================
+
 if (document.getElementById("question")) {
-    loadQuestion();
+
+    startQuiz();
 }
