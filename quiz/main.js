@@ -17,7 +17,6 @@ function createWindow() {
             contextIsolation: true
         }
     });
-    win.webContents.openDevTools();
     win.loadFile("index.html"); 
     
 }
@@ -72,7 +71,7 @@ ${syllabus}
 Rules:
 - Stay strictly within syllabus
 - Medium difficulty
-- 4 options each
+- 4 options each with no more than 10 words
 - Return ONLY valid JSON
 - No markdown
 - No explanations

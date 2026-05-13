@@ -237,4 +237,15 @@ body[data-subject = "PE"] {
 #question {
     text-align: center;
     white-space: pre-line;
+    line-height: 1.4;
+
+    padding: 10px;
+
+    word-wrap: break-word;
+}
+
+#result {
+    text-align: center;
+    line-height: 1.5;
+    word-wrap: break-word;
 }

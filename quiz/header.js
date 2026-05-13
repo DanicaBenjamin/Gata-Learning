@@ -56,7 +56,7 @@ if(ad) {
 const qe = document.querySelector('.QE');
 if(qe) {
     qe.addEventListener('click', function() {
-        window.location.href = "CA.html";
+        window.location.href = "QE.html";
     });
 }
 
