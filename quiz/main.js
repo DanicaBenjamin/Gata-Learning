@@ -1,12 +1,23 @@
 const { app, BrowserWindow, ipcMain } = require("electron");
-const path = require('path');
+const path = require("path");
+const dotenv = require("dotenv");
+
+dotenv.config({
+  path: path.join(process.resourcesPath, ".env")
+});
+
+console.log("RESOURCES:", process.resourcesPath);
+console.log("KEY:", process.env.GEMINI_API_KEY);
 
 let win;
+
+app.setAppUserModelId("com.gatalearning.app");
 
 function createWindow() {
     win = new BrowserWindow({
         width: 565,
         height: 760,
+        icon: path.join(__dirname, 'assets/favicon.ico'),
         resizable: false,
         maximizable: false,
         fullscreenable: false,
@@ -34,7 +45,6 @@ app.whenReady().then(() => {
     });
 });
 
-require("dotenv").config();
 
 const { GoogleGenerativeAI } =
     require("@google/generative-ai");

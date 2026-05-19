@@ -1,22 +1,38 @@
 {
-  "name": "quiz",
+  "name": "gata-learning",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "electron-builder"
   },
-  "keywords": [],
+"build": {
+  "appId": "com.gatalearning.app",
+  "productName": "Gato Learning",
+  "files": [
+    "**/*"
+  ],
+  "extraResources": [
+    {
+      "from": ".env",
+      "to": ".env"
+    }
+  ],
+  "win": {
+    "target": "nsis",
+    "icon": "assets/favicon.ico"
+  }
+},
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "devDependencies": {
-    "electron": "^41.3.0"
-  },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "dotenv": "^17.4.2",
-    "openai": "^6.37.0"
+    "dotenv": "^17.4.2"
+  },
+  "devDependencies": {
+    "electron": "^41.3.0",
+    "electron-builder": "^26.0.12"
   }
 }
